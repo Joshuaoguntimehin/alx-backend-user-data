@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """import statement"""
+import logging
 import re
 
 def filter_datum(fields, redaction, message, separator):
