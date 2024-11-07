@@ -1,5 +1,6 @@
+#!/usr/bin/env python3
+"""import statement"""
 import logging
-
 
 class RedactingFormatter(logging.Formatter):
     """ Redacting Formatter class
