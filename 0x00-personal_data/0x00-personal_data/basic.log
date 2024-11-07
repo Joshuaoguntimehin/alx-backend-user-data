@@ -1,0 +1,5 @@
+2024-11-07 15:32:56 DEBUG this is a debug
+2024-11-07 15:32:56 INFO this is an info massage
+2024-11-07 15:32:56 WARNING this is a warning message
+2024-11-07 15:32:56 ERROR this ia an error massage
+2024-11-07 15:32:56 CRITICAL this is a critical masage
