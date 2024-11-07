@@ -20,3 +20,12 @@ class RedactingFormatter(logging.Formatter):
         for field in self.fields:
             message = message.replace(field, self.REDACTION)
         return message
+    def format(self, record: logging.LogRecord) -> str:
+        # Custom formatting logic
+        log_message = super().format(record)  # Use the default format first
+        
+        # Add custom information (e.g., include a custom log prefix or timestamp)
+        custom_message = f"CustomPrefix: {log_message}"
+
+        return custom_message
+
