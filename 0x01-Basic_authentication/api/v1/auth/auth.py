@@ -10,7 +10,7 @@ User = TypeVar('User')
 
 
 class Auth():
-    def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
+    def require_auth(self, path: str, excluded_paths: List[str]) -> None:
         """ 
         return false
         """
@@ -27,3 +27,7 @@ class Auth():
         return false
         """
         return None
+
+
+if __name__ == "__main__":
+    a =Auth()
