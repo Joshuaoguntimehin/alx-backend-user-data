@@ -2,7 +2,11 @@
 """import stetement"""
 from flask import request
 from typing import List, TypeVar
+
+
 User = TypeVar('User')
+"""import stateent"""
+
 
 class Auth():
     def require_auth(self, path: str, excluded_paths: list[str]) -> bool:
