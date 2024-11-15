@@ -4,12 +4,10 @@ from flask import request
 
 class Auth:
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
-        """
-        Determines if the path requires authentication
-        """
+        """Determines if the path requires authentication"""
         if path is None or excluded_paths is None:
             return True 
-
+        """Determines if the path requires authentication"""
         if not path.endswith('/'):
             path += '/'
 
@@ -24,7 +22,9 @@ class Auth:
         """
         if request is None:
             return None
-        
+        """
+        Returns the authorization header from the request
+        """
         if "Authorization" not in request:
             return None
         else:
