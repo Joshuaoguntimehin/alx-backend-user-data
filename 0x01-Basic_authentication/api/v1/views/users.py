@@ -120,3 +120,7 @@ def update_user(user_id: str = None) -> str:
         user.last_name = rj.get('last_name')
     user.save()
     return jsonify(user.to_json()), 200
+
+@app_views.route('/users', methods=['GET'], strict_slashes=False)
+def user_authentication():
+    """ api/v1/app.py"""
