@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+"""
+This module provides the `Auth` class for handling basic authentication in a Flask web application.
+
+The `Auth` class includes methods for determining authentication requirements, retrieving
+authorization headers, and identifying the current user.
+"""
+
 from typing import List, TypeVar
 from flask import request
 
@@ -17,10 +24,9 @@ class Auth:
         Returns:
             bool: True if the path requires authentication, False otherwise.
         """
-        if path is None or excluded_paths is None or not excluded_paths:
+        if not path or not excluded_paths:
             return True
 
-        # Normalize paths for consistency
         if not path.endswith('/'):
             path += '/'
 
@@ -40,7 +46,6 @@ class Auth:
         """
         if request is None:
             return None
-
         return request.headers.get("Authorization")
 
     def current_user(self, request=None) -> TypeVar('User'):
