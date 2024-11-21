@@ -1,0 +1,3 @@
+ChatGPT
+
+The error you're seeing, TypeError: DB.find_user_by() takes 0 positional arguments but 1 was given, indicates that the method find_user_by is being called as if it requires an instance of the class (self), but the method is defined as a static method. In Python, static methods don't take an instance (self) as the first argument, but they do require you to call them using the class name (or directly if you call them as a class method).
