@@ -47,12 +47,19 @@ class DB:
         Raises InvalidRequestError if any invalid field is queried.
         Returns a User object if found.
         """
+        # Ensure the session is properly initialized
+        if self.__session is None:
+            raise Exception("Database session not initialized")
+
+        # Check for valid query keys
         for key in kwargs.keys():
             if not hasattr(User, key):
                 raise InvalidRequestError("Invalid query arguments provided")
 
+        # Perform the query
         user = self.__session.query(User).filter_by(**kwargs).first()
 
+        # Return the user if found, otherwise raise NoResultFound
         if user:
             return user
         raise NoResultFound("User not found")
