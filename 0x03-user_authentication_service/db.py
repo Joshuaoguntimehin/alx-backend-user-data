@@ -40,7 +40,7 @@ class DB:
         self._session.commit()
         self._session.refresh(user)
         return user
-    
+
     def find_user_by(self, **kwargs) -> User:
         """
         Find a user based on provided query arguments (e.g., email, username).
