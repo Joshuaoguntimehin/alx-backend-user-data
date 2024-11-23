@@ -40,16 +40,19 @@ class DB:
         self._session.commit()
         self._session.refresh(user)
         return user
+    
     def find_user_by(self, **kwargs) -> User:
         """
-
+        Find a user based on provided query arguments (e.g., email, username).
+        Raises InvalidRequestError if any invalid field is queried.
+        Returns a User object if found.
         """
         for key in kwargs.keys():
             if not hasattr(User, key):
                 raise InvalidRequestError("Invalid query arguments provided")
 
         user = self.__session.query(User).filter_by(**kwargs).first()
-    
+
         if user:
             return user
-        raise NoResultFound()
+        raise NoResultFound("User not found")
