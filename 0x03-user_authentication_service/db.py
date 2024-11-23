@@ -58,11 +58,16 @@ class DB:
         raise NoResultFound("User not found")
 
     def update_user(self, user_id: int, **kwargs) -> None:
-        # Find the user by user_id
+        """
+        Update a user in the database based on user_id.
+        :param user_id: ID of the user to be updated (int)
+        :param kwargs: The attributes and values to update in the user record (dict)
+        :return: None
+        """
         user_to_update = self.find_user_by(id=user_id)
         for attr, value in kwargs.items():
             if hasattr(User, attr):
                setattr(user_to_update, attr, value)
             else:
-                raise ValueError()
+                raise ValueError(f"Invalid attribute: {attr}")
         self._session.commit()
