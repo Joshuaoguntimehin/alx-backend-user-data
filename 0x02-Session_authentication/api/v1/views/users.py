@@ -4,7 +4,21 @@
 from api.v1.views import app_views
 from flask import abort, jsonify, request
 from models.user import User
-from models import storage
+
+
+@app_views.route('/users/<user_id>', methods=['GET'], strict_slashes=False)
+def get_user(user_id):
+    """Retrieve a user by user_id."""
+    if user_id == 'me':
+        if request.current_user is None:
+            abort(404)  # If no authenticated user, return 404
+        return jsonify(request.current_user.to_dict())  # Return authenticated user's data
+
+    # Normal behavior for any other user_id
+    user = User.get(user_id)  # Assuming `User.get()` fetches a user by ID
+    if user is None:
+        abort(404)  # If user not found, return 404
+    return jsonify(user.to_dict())  
 
 
 @app_views.route('/users', methods=['GET'], strict_slashes=False)
@@ -90,19 +104,6 @@ def create_user() -> str:
     return jsonify({'error': error_msg}), 400
 
 
-@app_views.route('/api/v1/users/<user_id>', methods=['GET'])
-def get_user(user_id):
-    if user_id == "me":
-        if request.current_user is None:
-            abort(404)
-        return jsonify(request.current_user.to_dict())
-    
-    user = storage.get(User, user_id)
-    if user is None:
-        abort(404)
-    return jsonify(user.to_dict())
-    
-         
 @app_views.route('/users/<user_id>', methods=['PUT'], strict_slashes=False)
 def update_user(user_id: str = None) -> str:
     """ PUT /api/v1/users/:id
@@ -135,5 +136,6 @@ def update_user(user_id: str = None) -> str:
     user.save()
     return jsonify(user.to_json()), 200
 
-
-    
+@app_views.route('/users', methods=['GET'], strict_slashes=False)
+def user_authentication():
+    """ api/v1/app.py"""
