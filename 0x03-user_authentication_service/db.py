@@ -6,6 +6,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
+from sqlalchemy.exc import NoResultFound
+from sqlalchemy.exc import InvalidRequestError
 
 from user import Base, User
 
@@ -38,3 +40,16 @@ class DB:
         self._session.commit()
         self._session.refresh(user)
         return user
+    def find_user_by(self, **kwargs) -> User:
+        """
+
+        """
+        for key in kwargs.keys():
+            if not hasattr(User, key):
+                raise InvalidRequestError("Invalid query arguments provided")
+
+        user = self.__session.query(User).filter_by(**kwargs).first()
+    
+        if user:
+            return user
+        raise NoResultFound()
